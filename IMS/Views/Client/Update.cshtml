@@ -1,0 +1,48 @@
+﻿@model IMS_DomainLayer.Dtos.Client.ClientDto
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div class="d-flex align-items-center gap-4 my-4">
+    <div class="border rounded py-1 px-2">
+        <a asp-action="Index" class="text-dark"><i class="bi bi-chevron-left fs-5"></i></a>
+    </div>
+    <h4 class="p-0 m-0">Update client details</h4>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input hidden asp-for="ApplicationUserId" class="form-control" />
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="FullName" class="control-label mb-1"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="Email" class="control-label mb-1"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="AddressLine" class="control-label mb-1"></label>
+                <input asp-for="AddressLine" class="form-control" />
+                <span asp-validation-for="AddressLine" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary w-100" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

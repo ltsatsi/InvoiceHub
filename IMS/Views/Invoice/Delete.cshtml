@@ -1,0 +1,60 @@
+﻿@model IMS_DomainLayer.Dtos.Invoice.InvoiceDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="d-flex align-items-center gap-4 my-4">
+    <div class="border rounded py-1 px-2">
+        <a asp-action="Index" class="text-dark"><i class="bi bi-chevron-left fs-5"></i></a>
+    </div>
+    <div>
+        <h4 class="p-0 m-0">Delete Invoice</h4>
+    </div>
+</div>
+
+
+<div class="col col-md-7 mt-3 card border-0">
+    <div class="card-body">
+        <h5 class="text-muted">@Html.DisplayFor(model => model.InvoiceNumber)</h5>
+        <div class="my-3">
+            <dl class="row">
+                <dt class="col-6">@Html.DisplayNameFor(model => model.DateIssued)</dt>
+                <dd class="col-6">@Model.DateIssued.ToString("dd MMM yyyy")</dd>
+
+                <dt class="col-6">@Html.DisplayNameFor(model => model.DueDate)</dt>
+                <dd class="col-6">@Model.DueDate.ToString("dd MMM yyyy")</dd>
+            </dl>
+
+            <hr/>
+
+            <dl class="row">
+                <dt class="col-6">
+                    @Html.DisplayNameFor(model => model.Subtotal)
+                </dt>
+                <dd class="col-6">
+                    R @Model.Subtotal.ToString("F2")
+                </dd>
+                <dt class="col-6">
+                    @Html.DisplayNameFor(model => model.Discount)
+                </dt>
+                <dd class="col-6">
+                    @(Model.Discount * 100)%
+                </dd>
+                <dt class="col-6">
+                    @Html.DisplayNameFor(model => model.GrandTotal)
+                </dt>
+                <dd class="col-5">
+                    R @Model.GrandTotal.ToString("F2")
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <small class="text-danger mb-4">This action will permanently remove invoice: <strong>@Model.InvoiceNumber</strong> from our Database. Please be adviced this action cannot be undone!</small>
+
+    <form asp-action="Delete" method="post">
+        <input type="submit" value="Delete" class="btn btn-danger w-100" />
+    </form>
+
+</div>

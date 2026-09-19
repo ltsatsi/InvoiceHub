@@ -1,0 +1,84 @@
+﻿@model IEnumerable<IMS_DomainLayer.Dtos.Invoice.InvoiceDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex align-items-center gap-4 my-4">
+    <div class="border rounded py-1 px-2">
+        <a asp-controller="Home" asp-action="Index" class="text-dark"><i class="bi bi-chevron-left fs-5"></i></a>
+    </div>
+    <h4 class="p-0 m-0">Invoices</h4>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InvoiceNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateIssued)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DueDate)
+                </th>
+                <th>
+                    Items
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GrandTotal)
+                </th>
+                <th class="text-end">
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="clickable-row"
+                    style="cursor: pointer;"
+                    data-url="@Url.Action("Details", "Invoice", new { id = item.Id })">
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                    </td>
+
+                    <td class="text-nowrap">
+                        @item.DateIssued.ToString("dd MMM yyyy")
+                    </td>
+
+                    <td class="text-nowrap">
+                        @item.DueDate.ToString("dd MMM yyyy")
+                    </td>
+
+                    <td>
+                        @item.InvoiceItems.Count
+                    </td>
+
+                    <td class="text-nowrap">
+                        R @item.GrandTotal.ToString("F2")
+                    </td>
+
+                    <td class="text-end text-nowrap">
+                        <a asp-action="Update" asp-route-id="@item.Id"><i class="bi bi-pencil text-dark me-2"></i></a>
+                        <a asp-action="DownloadPdf" asp-route-id="@item.Id"><i class="bi bi-download text-dark me-2"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash text-danger"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    document.querySelectorAll('.clickable-row').forEach(row => {
+        row.addEventListener('click', () => {
+            window.location.href = row.dataset.url;
+        });
+    });
+</script>

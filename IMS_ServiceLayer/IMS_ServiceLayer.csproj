@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="QuestPDF" Version="2026.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IMS_DomainLayer\IMS_DomainLayer.csproj" />
+    <ProjectReference Include="..\IMS_InfrastructureLayer\IMS_InfrastructureLayer.csproj" />
+    <ProjectReference Include="..\IMS_RepositoryLayer\IMS_RepositoryLayer.csproj" />
+  </ItemGroup>
+
+</Project>

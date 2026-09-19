@@ -1,0 +1,107 @@
+﻿@model IMS_DomainLayer.Dtos.Client.ClientDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="d-flex align-items-center justify-content-between my-4">
+    <div class="d-flex align-items-center gap-4">
+        <div class="border rounded py-1 px-2">
+            <a asp-action="Index" class="text-dark"><i class="bi bi-chevron-left fs-5"></i></a>
+        </div>
+        <h4 class="p-0 m-0">Client Details</h4>
+    </div>
+    <a asp-controller="Invoice" asp-action="Create" asp-route-clientId="@Model.Id" class="btn btn-primary">Create Invoice</a>
+</div>
+
+<div class="row">
+    <div class="col col-md-5 mb-4">
+        <div class="card border-0 mb-5">
+            <div class="position-relative">
+                <img src="https://placehold.net/5-600x800.png"
+                     class="w-100 rounded-top"
+                     style="height: 200px; object-fit: cover;"
+                     alt="Cover">
+
+                <img src="https://placehold.net/avatar-5.svg"
+                     class="position-absolute rounded-circle border border-1 border-white"
+                     style="width: 100px; height: 100px; object-fit: cover; left: 20px; bottom: -50px;" />
+            </div>
+        </div>
+
+        <div style="margin-top: 70px;">
+            <div class="d-flex align-items-center justify-content-between">
+                <h4>@Html.DisplayFor(model => model.FullName)</h4>
+                <div>
+                    <a asp-action="Update" asp-route-id="@Model.Id" class="text-dark"><i class="bi bi-pencil"></i></a>
+                </div>
+            </div>
+            <p class="text-dark py-1 m-0">@Html.DisplayFor(model => model.Email)</p>
+            <p class="text-muted py-1 m-0">@Html.DisplayFor(model => model.AddressLine)</p>
+        </div>
+    </div>
+  
+    @if (Model.Invoices.Any())
+    {
+        <div class="col col-md-7">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>
+                                Invoice No
+                            </th>
+                            <th>
+                                Date Issued
+                            </th>
+                            <th>
+                                Due Date
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Invoices)
+                        {
+                            <tr class="clickable-row"
+                                style="cursor: pointer;"
+                                data-url="@Url.Action("Details", "Invoice", new { id = item.Id })">
+
+                                <td class="text-nowrap">
+                                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                                </td>
+                                <td class="text-nowrap">
+                                    @item.DateIssued.ToString("dd MMM yyyy")
+                                </td>
+                                <td class="text-nowrap">
+                                    @item.DueDate.ToString("dd MMM yyyy")
+                                </td>
+                                <td class="text-nowrap">
+                                    R @item.GrandTotal.ToString("F2")
+                                </td>
+                                <td class="d-flex justify-content-evenly align-items-center">
+                                    <a asp-action="Update" asp-controller="Invoice" asp-route-id="@item.Id"><i class="bi bi-pencil text-dark me-2"></i></a>
+                                    <a asp-action="DownloadPdf" asp-controller="Invoice" asp-route-id="@item.Id"><i class="bi bi-download text-dark me-2"></i></a>
+                                    <a asp-action="Delete" asp-controller="Invoice" asp-route-id="@item.Id"><i class="bi bi-trash text-danger"></i></a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.querySelectorAll('.clickable-row').forEach(row => {
+        row.addEventListener('click', () => {
+            window.location.href = row.dataset.url;
+        });
+    });
+</script>

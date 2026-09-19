@@ -1,0 +1,44 @@
+﻿@model IMS_DomainLayer.Dtos.Client.ClientDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+    <div class="d-flex align-items-center gap-4 my-4">
+        <div class="border rounded py-1 px-2">
+        <a asp-action="Index" class="text-dark"><i class="bi bi-chevron-left fs-5"></i></a>
+        </div>
+        <div>
+            <h4 class="p-0 m-0">Delete Client</h4>
+        </div>
+    </div>
+
+<div class="col col-md-8 col-lg-6 mt-3">
+        <div class="card border-0 mb-5">
+            <div class="position-relative">
+            <img src="https://placehold.net/5-600x800.png"
+                     class="w-100 rounded-top"
+                     style="height: 200px; object-fit: cover;"
+                     alt="Cover">
+
+                <img src="https://placehold.net/avatar-5.svg"
+                     class="position-absolute rounded-circle border border-1 border-white"
+                     style="width: 100px; height: 100px; object-fit: cover; left: 20px; bottom: -50px;" />
+            </div>
+        </div>
+
+    <div style="margin-top: 70px;">
+        <h4>@Html.DisplayFor(model => model.FullName)</h4>
+        <p class="text-dark py-1 m-0">@Html.DisplayFor(model => model.Email)</p>
+        <p class="text-muted py-1 m-0">@Html.DisplayFor(model => model.AddressLine)</p>
+    </div>
+
+
+    <small class="text-danger">This action will permanently remove <strong>@Model.FullName</strong> our the Database. Please be adviced this action cannot be undone!</small>
+
+    <form asp-action="Delete" class="mt-4">
+        <input type="submit" value="Delete" class="btn btn-danger w-100" />
+    </form>
+</div>

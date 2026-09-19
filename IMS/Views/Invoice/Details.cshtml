@@ -1,0 +1,116 @@
+﻿@model IMS_DomainLayer.Dtos.Invoice.InvoiceDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="d-flex align-items-center gap-4 my-4">
+    <div class="border rounded py-1 px-2">
+        <a asp-action="Index" class="text-dark"><i class="bi bi-chevron-left fs-5"></i></a>
+    </div>
+    <div>
+        <h4 class="p-0 m-0">Invoice Details</h4>
+    </div>
+</div>
+
+
+<div class="col col-md-7 mt-3 card shadow-sm border-0">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="text-muted p-0 m-0">@Html.DisplayFor(model => model.InvoiceNumber)</h5>
+
+            <div>
+                <a asp-action="DownloadPdf" asp-controller="Invoice" asp-route-id="@Model.Id"><i class="bi bi-download text-dark fw-bold me-3"></i></a>
+                <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Update</a>
+            </div>
+        </div>
+
+        <div class="my-3">
+            <dl class="row">
+                <dt class="col-6">@Html.DisplayNameFor(model => model.DateIssued)</dt>
+                <dd class="col-6">@Model.DateIssued.ToString("dd MMM yyyy")</dd>
+
+                <dt class="col-6">@Html.DisplayNameFor(model => model.DueDate)</dt>
+                <dd class="col-6">@Model.DueDate.ToString("dd MMM yyyy")</dd>
+            </dl>
+
+            <hr />
+
+            <dl class="row">
+                <dt class="col-6">
+                    @Html.DisplayNameFor(model => model.Subtotal)
+                </dt>
+                <dd class="col-6">
+                    R @Model.Subtotal.ToString("F2")
+                </dd>
+                <dt class="col-6">
+                    @Html.DisplayNameFor(model => model.Discount)
+                </dt>
+                <dd class="col-6">
+                    @(Model.Discount * 100)%
+                </dd>
+                <dt class="col-6">
+                    @Html.DisplayNameFor(model => model.GrandTotal)
+                </dt>
+                <dd class="col-5">
+                    R @Model.GrandTotal.ToString("F2")
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<h5 class="my-4">Invoice Items</h5>
+
+
+<div class="col col-md-7 card border-0">
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th class="text-end">
+                        Quantity
+                    </th>
+                    <th class="text-end">
+                        Tax
+                    </th>
+                    <th class="text-end">
+                        Amount
+                    </th>
+                    <th class="text-end">
+                        Created At
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.InvoiceItems)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+
+                        <td class="text-nowrap text-end">
+                            @item.Quantity
+                        </td>
+
+                        <td class="text-nowrap text-end">
+                            @item.Tax%
+                        </td>
+
+                        <td class="text-nowrap text-end">
+                            R @item.Amount.ToString("F2")
+                        </td>
+                        <td class="text-end">
+                            @Model.DateIssued.ToString("dd MMM yyyy")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
